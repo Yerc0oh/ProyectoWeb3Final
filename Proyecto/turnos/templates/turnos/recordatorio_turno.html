@@ -1,0 +1,12 @@
+{% extends "turnos/base.html" %}
+
+{% block content %}
+    <p>Hola {{ paciente.nombre }} {{ paciente.apellido }},</p>
+
+    <p>Este es un recordatorio de su turno médico con el Dr. {{ doctor.nombre }} {{ doctor.apellido }},</p>
+    
+    <p><strong>Fecha y hora:</strong> {{ fecha_hora }}</p>
+
+    <p>Por favor, acuda con 10 minutos de anticipación.</p>
+    <p>Gracias por confiar en nosotros.</p>
+{% endblock %}
