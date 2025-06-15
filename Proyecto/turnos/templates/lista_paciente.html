@@ -5,7 +5,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-procedures me-2"></i>Lista de Pacientes</h2>
-    <a href="{% url 'registrar_paciente' %}" class="btn btn-primary">
+    <a href="{% url 'turnos:registrar_paciente' %}" class="btn btn-primary">
         <i class="fas fa-plus me-2"></i>Nuevo Paciente
     </a>
 </div>
@@ -31,10 +31,10 @@
                     <td>{{ paciente.email }}</td>
                     <td>{{ paciente.telefono }}</td>
                      <td>
-                        <a href="{% url 'editar_paciente' paciente.id_paciente %}" class="btn btn-sm btn-outline-primary" title="Editar">
+                        <a href="{% url 'turnos:editar_paciente' paciente.id_paciente %}" class="btn btn-sm btn-outline-primary" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="{% url 'eliminar_paciente' paciente.id_paciente %}" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                        <a href="{% url 'turnos:eliminar_paciente' paciente.id_paciente %}" class="btn btn-sm btn-outline-danger" title="Eliminar">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>

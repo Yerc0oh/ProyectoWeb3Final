@@ -205,29 +205,29 @@
     </header>
 
     <div class="main-container">
-        <!-- Menú Lateral -->
+        
         <nav class="sidebar">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'lista_doctores' %}">
+                    <a class="nav-link" href="{% url 'turnos:lista_doctores' %}">
                         <i class="fas fa-user-md"></i>
                         <span class="nav-link-text">Doctores</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'registrar_doctor' %}">
+                    <a class="nav-link" href="{% url 'turnos:registrar_doctor' %}">
                         <i class="fas fa-user-plus"></i>
                         <span class="nav-link-text">Registrar Doctor</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'paciente_list' %}">
+                    <a class="nav-link" href="{% url 'turnos:paciente_list' %}">
                         <i class="fas fa-procedures"></i>
                         <span class="nav-link-text">Pacientes</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'registrar_paciente' %}">
+                    <a class="nav-link" href="{% url 'turnos:registrar_paciente' %}">
                         <i class="fas fa-user-plus"></i>
                         <span class="nav-link-text">Registrar Paciente</span>
                     </a>
@@ -236,13 +236,13 @@
             </ul>
         </nav>
 
-        <!-- Contenido Principal -->
+        
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
     </div>
 
-    <!-- Pie de Página -->
+    
     <footer class="footer">
         <div class="container">
             <div class="row">

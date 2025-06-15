@@ -5,7 +5,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2><i class="fas fa-user-md me-2"></i>Doctores Registrados</h2>
-    <a href="{% url 'registrar_doctor' %}" class="btn btn-primary">
+    <a href="{% url 'turnos:registrar_doctor' %}" class="btn btn-primary">
         <i class="fas fa-plus me-2"></i>Nuevo Doctor
     </a>
 </div>
@@ -30,10 +30,10 @@
                     <td>{{ doctor.id_especialidad.nombre }}</td>
                     <td>
     <!-- Usa el namespace 'turnos:' y doctor.pk -->
-    <a href="{% url 'editar_doctor' doctor.pk %}" class="btn btn-sm btn-outline-primary">
+    <a href="{% url 'turnos:editar_doctor' doctor.pk %}" class="btn btn-sm btn-outline-primary">
         <i class="fas fa-edit"></i> Editar
     </a>
-    <a href="{% url 'eliminar_doctor' doctor.pk %}" class="btn btn-sm btn-outline-danger">
+    <a href="{% url 'turnos:eliminar_doctor' doctor.pk %}" class="btn btn-sm btn-outline-danger">
         <i class="fas fa-trash-alt"></i> Eliminar
     </a>
 </td>

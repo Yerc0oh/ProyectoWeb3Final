@@ -9,6 +9,7 @@ urlpatterns = [
 =======
 from . import views  # Asegúrate de que esto esté
 
+app_name = 'turnos'
 
 urlpatterns = [
     # URLs para Doctores
