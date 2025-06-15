@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Eliminación de Doctor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación</h3>
+        </div>
+        <div class="card-body">
+            <h5>¿Está seguro que desea eliminar al siguiente doctor?</h5>
+            <div class="alert alert-warning mt-3">
+                <p><strong>Nombre:</strong> {{ doctor.nombre }} {{ doctor.apellido }}</p>
+                <p><strong>Especialidad:</strong> {{ doctor.id_especialidad.nombre }}</p>
+                <p class="mb-0">Esta acción eliminará también todas sus disponibilidades y turnos asociados.</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'turnos:lista_doctores' %}" class="btn btn-secondary me-2">
+                        <i class="fas fa-times me-1"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-1"></i> Confirmar Eliminación
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

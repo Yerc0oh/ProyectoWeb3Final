@@ -1,0 +1,16 @@
+{% extends "turnos/base.html" %}
+
+{% block content %}
+    <form method="post" action="{% url 'enviar_recordatorios' %}">
+        {% csrf_token %}
+        <button type="submit">Recargar recordatorios</button>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
