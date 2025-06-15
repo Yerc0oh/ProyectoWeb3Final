@@ -1,0 +1,17 @@
+{% extends 'turnos/base.html' %}
+
+{% block title %}Eliminar Disponibilidad{% endblock %}
+
+{% block content %}
+  <h2>Confirmar eliminación</h2>
+  <p>¿Estás seguro que quieres eliminar esta disponibilidad?</p>
+  <p><strong>Doctor:</strong> {{ disponibilidad.id_doctor.nombre }} {{ disponibilidad.id_doctor.apellido }}</p>
+  <p><strong>Día:</strong> {{ disponibilidad.dia_semana }}</p>
+  <p><strong>Horario:</strong> {{ disponibilidad.hora_inicio }} a {{ disponibilidad.hora_fin }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'ver_disponibilidad' %}">Cancelar</a>
+  </form>
+{% endblock %}

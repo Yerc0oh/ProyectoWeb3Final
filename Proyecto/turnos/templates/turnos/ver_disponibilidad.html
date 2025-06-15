@@ -1,0 +1,37 @@
+{% extends 'turnos/base.html' %}
+
+{% block title %}Disponibilidades registradas{% endblock %}
+
+{% block content %}
+  <h2>Lista de disponibilidades</h2>
+
+  <form method="get" action="{% url 'ver_disponibilidad' %}">
+  <label for="doctor_nombre">Buscar disponibilidad por doctor:</label>
+  <select name="doctor_nombre" id="doctor_nombre">
+    <option value="">Ver todas los doctores</option>
+    {% for doc in doctores %}
+      <option value="{{ doc.nombre }}" {% if doctor_nombre == doc.nombre %}selected{% endif %}>
+        {{ doc.nombre }} {{ doc.apellido }} - {{ doc.id_especialidad.nombre }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit">Buscar</button>
+</form>
+
+
+  <ul>
+    {% for disponibilidad in disponibilidades %}
+      <li>
+        Dr. {{ disponibilidad.id_doctor.nombre }} {{ disponibilidad.id_doctor.apellido }} -
+        {{ disponibilidad.dia_semana }}: {{ disponibilidad.hora_inicio }} a {{ disponibilidad.hora_fin }}
+
+        <a href="{% url 'editar_disponibilidad' disponibilidad.id_disponibilidad %}">Editar</a> |
+        <a href="{% url 'borrar_disponibilidad' disponibilidad.id_disponibilidad %}">Borrar</a>
+      </li>
+    {% empty %}
+      <li>No hay disponibilidades registradas.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'crear_disponibilidad' %}">Crear nueva disponibilidad</a>
+{% endblock %}
