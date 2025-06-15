@@ -1,13 +1,6 @@
 from django.urls import path
-<<<<<<< HEAD
+
 from . import views
-
-app_name = 'turnos'
-
-urlpatterns = [
-    path('', views.inicio, name='inicio'),
-=======
-from . import views  # Asegúrate de que esto esté
 
 app_name = 'turnos'
 
@@ -26,7 +19,8 @@ urlpatterns = [
     path('pacientes/eliminar/<int:id_paciente>/', views.eliminar_paciente, name='eliminar_paciente'),
 
     
+    path('enviar-recordatorios/', views.recordatorio, name='enviar_recordatorios'),
+    path('', views.inicio, name='inicio'),
 
 
->>>>>>> 5e2ec6d (se realiazo la creacion de los formularios de regsitro de medico y paciente con sus respectivos templates)
 ]
