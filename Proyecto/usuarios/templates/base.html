@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Mi Sitio{% endblock %}</title>
+  <style>
+    :root {
+      --color-primary: #2e7d32; /* Verde solicitado */
+      --color-accent: #1b5e20; /* Verde más oscuro para hover */
+      --color-bg: #f7f9fc;
+      --color-text: #333;
+      --color-white: #fff;
+      --spacing: 1rem;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: var(--font-family);
+      margin: 0;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+    header {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      padding: var(--spacing);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav {
+      display: flex;
+      gap: var(--spacing);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--color-white);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--color-accent);
+      outline: none;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 var(--spacing);
+      background: var(--color-white);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      min-height: 60vh;
+    }
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        justify-content: flex-start;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistema de Turnos Medicos</h1>
+    <nav aria-label="Menú principal">
+      {% if user.is_authenticated %}
+        <span>Bienvenido, <strong>{{ user.username }}</strong></span>
+        <a href="{% url 'perfil' %}">Perfil</a>
+        <a href="{% url 'logout' %}">Cerrar sesión</a>
+      {% else %}
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main role="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

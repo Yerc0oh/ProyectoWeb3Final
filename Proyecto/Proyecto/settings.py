@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'turnos', 
+    'turnos',
+    'usuarios',
+    
 ]
 
 MIDDLEWARE = [
@@ -122,6 +124,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'tucorreo@tudominio.com'  
 EMAIL_HOST = 'smtp.gmail.com'
@@ -144,3 +147,5 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
