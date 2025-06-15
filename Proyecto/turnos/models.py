@@ -56,7 +56,7 @@ class Turno(models.Model):
     id_turno = models.AutoField(primary_key=True)
     id_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='turnos')
     id_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='turnos')
-    fecha_hora = models.DateTimeField(auto_now_add=True)
+    fecha_hora = models.DateTimeField()
     motivo_consulta = models.TextField(blank=True, null=True)
     recordatorio_enviado = models.BooleanField(default=False)
     fecha_recordatorio = models.DateTimeField(blank=True, null=True)
