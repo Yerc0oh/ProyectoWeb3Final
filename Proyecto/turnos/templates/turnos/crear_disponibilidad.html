@@ -1,0 +1,13 @@
+{% extends 'turnos/base.html' %}
+
+{% block title %}Crear Disponibilidad{% endblock %}
+
+{% block content %}
+  <h2>Registrar nueva disponibilidad</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'ver_disponibilidad' %}">Ver todas las disponibilidades</a>
+{% endblock %}
