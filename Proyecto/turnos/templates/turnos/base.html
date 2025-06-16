@@ -2,21 +2,332 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Turnos Médicos{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema Médico{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a6fc9;
+            --secondary-color: #f8f9fa;
+            --accent-color: #e3f2fd;
+            --text-dark: #212529;
+            --text-light: #f8f9fa;
+            --sidebar-width: 250px;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            background-color: white;
+            width: var(--sidebar-width);
+            min-height: calc(100vh - 56px);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 56px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-collapsed {
+            width: 60px;
+        }
+        
+        .sidebar-collapsed .nav-link-text {
+            display: none;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--text-dark);
+            border-radius: 5px;
+            margin: 0.2rem 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            min-height: calc(100vh - 56px);
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+        }
+        
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .user-info {
+            background-color: var(--accent-color);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .logo {
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        
+        /* Estilos para las tablas */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        /* Estilos para formularios */
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 56px;
+                height: calc(100vh - 56px);
+                z-index: 99;
+            }
+            
+            .sidebar-show {
+                left: 0;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Turnos Médicos</h1>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="toggle-sidebar d-lg-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2967/2967178.png" alt="Logo Médico" class="logo">
+                    <h1>Sistema de Turnos Médicos</h1>
+                </div>
+                <div class="ms-auto d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                        <i class="fas fa-user-circle fa-lg text-white me-2"></i>
+                        <span class="text-white me-3">{{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="btn btn-sm btn-light">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-sm btn-light me-2">Login</a>
+                        <a href="{% url 'registro' %}" class="btn btn-sm btn-outline-light">Registrarse</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
     </header>
 
-    <main>
-        {% block content %}
-        <!-- Contenido de cada vista irá aquí -->
-        {% endblock %}
-    </main>
+    <div class="main-container">
+        
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                {% if not request.user.is_authenticated or request.user.rol == 'usuarionormal' or request.user.rol == 'administrador' or request.user.is_superuser %}
+                    <!-- Visible para todos los usuarios autenticados -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:lista_doctores' %}">
+                            <i class="fas fa-user-md"></i>
+                            <span class="nav-link-text">Doctores</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:paciente_list' %}">
+                            <i class="fas fa-procedures"></i>
+                            <span class="nav-link-text">Pacientes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:lista_turnos' %}">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="nav-link-text">Turnos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:lista_especialidades' %}">
+                            <i class="fas fa-stethoscope"></i>
+                            <span class="nav-link-text">Especialidades</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:inicio' %}">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-link-text">Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'turnos:ver_disponibilidad' %}">
+                            <i class="fas fa-list"></i>
+                            <span class="nav-link-text">Ver Disponibilidad</span>
+                        </a>
+                    </li>
+                
+                    <!-- Solo para doctores -->
+                    {% if request.user.is_authenticated and request.user.rol == 'administrador' or request.user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'turnos:registrar_doctor' %}">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="nav-link-text">Registrar Doctor</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'turnos:registrar_paciente' %}">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="nav-link-text">Registrar Paciente</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'turnos:registrar_turno' %}">
+                                <i class="fas fa-plus"></i>
+                                <span class="nav-link-text">Registrar Turno</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'turnos:crear_disponibilidad' %}">
+                                <i class="fas fa-clock"></i>
+                                <span class="nav-link-text">Crear Disponibilidad</span>
+                            </a>
+                        </li>
+                    {% endif %}
 
-    <footer>
-        <p>Proyecto Django - UMSA</p>
+                {% endif %}
+            </ul>
+        </nav>
+
+
+        
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© {% now "Y" %} SISTEMA DE TURNOS MEDICOS - 2025</p>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle sidebar en móviles
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('sidebar-show');
+        });
+        
+        // Marcar el enlace activo
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUrl = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

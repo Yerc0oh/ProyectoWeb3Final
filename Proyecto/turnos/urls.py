@@ -19,12 +19,21 @@ urlpatterns = [
     path('pacientes/eliminar/<int:id_paciente>/', views.eliminar_paciente, name='eliminar_paciente'),
 
     
-    path('enviar-recordatorios/', views.recordatorio, name='enviar_recordatorios'),
+    path('recordatorio/', views.recordatorio, name='recordatorio'),
     path('', views.inicio, name='inicio'),
 
     path('crear_disponibilidad/', views.crear_disponibilidad, name='crear_disponibilidad'),
     path('ver_disponibilidad/', views.ver_disponibilidad, name='ver_disponibilidad'),
     path('editar/<int:id_disponibilidad>/', views.editar_disponibilidad, name='editar_disponibilidad'),
     path('borrar/<int:id_disponibilidad>/', views.borrar_disponibilidad, name='borrar_disponibilidad'),
+
+    path('lista_turnos/', views.lista_turnos, name='lista_turnos'),
+    path('registrar_turno/', views.registrar_turno, name='registrar_turno'),
+    path('turnos/editar/<int:id_turno>/', views.editar_turno, name='editar_turno'),
+    path('turnos/eliminar/<int:id_turno>/', views.eliminar_turno, name='eliminar_turno'),
+    path('registrar_especialidad/', views.registrar_especialidad, name='registrar_especialidad'),
+    path('especialidades/', views.lista_especialidades, name='lista_especialidades'),
+    path('especialidades/editar/<int:id_especialidad>/', views.editar_especialidad, name='editar_especialidad'),
+    path('especialidades/eliminar/<int:id_especialidad>/', views.eliminar_especialidad, name='eliminar_especialidad'),
 
 ]

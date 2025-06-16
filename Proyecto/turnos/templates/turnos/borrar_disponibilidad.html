@@ -12,6 +12,6 @@
   <form method="post">
     {% csrf_token %}
     <button type="submit">Sí, eliminar</button>
-    <a href="{% url 'ver_disponibilidad' %}">Cancelar</a>
+    <a href="{% url 'turnos:ver_disponibilidad' %}">Cancelar</a>
   </form>
 {% endblock %}

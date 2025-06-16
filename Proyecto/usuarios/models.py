@@ -5,7 +5,7 @@ from django.db import models
 
 class Usuario(AbstractUser):
     ROLES = (
-        ('doctor', 'Doctor'),
-        ('paciente', 'Paciente'),
+        ('administrador', 'Administrador'),
+        ('usuarionormal', 'Usuario Normal'),
     )
-    rol = models.CharField(max_length=10, choices=ROLES)
+    rol = models.CharField(max_length=30, choices=ROLES)
