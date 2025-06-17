@@ -3,33 +3,56 @@
 {% block title %}Editar Disponibilidad{% endblock %}
 
 {% block content %}
-  <h2>Editar disponibilidad</h2>
+<div class="form-container">
+    <h2 class="mb-4"><i class="fas fa-edit me-2"></i>Editar Disponibilidad</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
 
-  <form method="post">
-    {% csrf_token %}
+                    {% if field.name == 'hora_inicio' or field.name == 'hora_fin' %}
+                        {% with field.value|stringformat:"s" as raw_val %}
+                            {% if raw_val %}
+                                {% with raw_val|slice:":5" as time_val %}
+                                    <input type="time" 
+                                           name="{{ field.name }}" 
+                                           id="{{ field.id_for_label }}" 
+                                           value="{{ time_val }}" 
+                                           class="form-control">
+                                {% endwith %}
+                            {% else %}
+                                <input type="time" 
+                                       name="{{ field.name }}" 
+                                       id="{{ field.id_for_label }}" 
+                                       value="" 
+                                       class="form-control">
+                            {% endif %}
+                        {% endwith %}
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
 
-    <p>
-      <label for="{{ form.id_doctor.id_for_label }}">Doctor:</label>
-      {{ form.id_doctor }}
-    </p>
-
-    <p>
-      <label for="{{ form.dia_semana.id_for_label }}">Día de la semana:</label>
-      {{ form.dia_semana }}
-    </p>
-
-    <p>
-      <label for="{{ form.hora_inicio.id_for_label }}">Hora de inicio:</label>
-      {{ form.hora_inicio }}
-    </p>
-
-    <p>
-      <label for="{{ form.hora_fin.id_for_label }}">Hora de fin:</label>
-      {{ form.hora_fin }}
-    </p>
-
-    <button type="submit">Guardar cambios</button>
-  </form>
-
-  <p><a href="{% url 'turnos:ver_disponibilidad' %}">← Cancelar y volver</a></p>
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback d-block">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'turnos:ver_disponibilidad' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>Guardar Cambios
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -1,17 +1,30 @@
 {% extends 'turnos/base.html' %}
 
-{% block title %}Eliminar Disponibilidad{% endblock %}
+{% block title %}Confirmar Eliminación{% endblock %}
 
 {% block content %}
-  <h2>Confirmar eliminación</h2>
-  <p>¿Estás seguro que quieres eliminar esta disponibilidad?</p>
-  <p><strong>Doctor:</strong> {{ disponibilidad.id_doctor.nombre }} {{ disponibilidad.id_doctor.apellido }}</p>
-  <p><strong>Día:</strong> {{ disponibilidad.dia_semana }}</p>
-  <p><strong>Horario:</strong> {{ disponibilidad.hora_inicio }} a {{ disponibilidad.hora_fin }}</p>
-
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-    <a href="{% url 'turnos:ver_disponibilidad' %}">Cancelar</a>
-  </form>
+<div class="container mt-4">
+    <h2><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación</h2>
+    
+    <div class="alert alert-danger mt-3">
+        <h4>¿Está seguro que desea eliminar esta disponibilidad?</h4>
+        <hr>
+        <p><strong>Doctor:</strong> {{ disponibilidad.id_doctor.nombre }} {{ disponibilidad.id_doctor.apellido }}</p>
+        <p><strong>Día:</strong> {{ disponibilidad.dia_semana }}</p>
+        <p><strong>Horario:</strong> {{ disponibilidad.hora_inicio }} a {{ disponibilidad.hora_fin }}</p>
+        <p class="mb-0">Esta acción no se puede deshacer.</p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'turnos:ver_disponibilidad' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt me-2"></i>Confirmar Eliminación
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

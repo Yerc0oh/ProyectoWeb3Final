@@ -27,8 +27,8 @@
                 <tr>
                     <td>{{ turno.id_paciente.nombre }} {{ turno.id_paciente.apellido }}</td>
                     <td>{{ turno.id_doctor.nombre }} {{ turno.id_doctor.apellido }}</td>
-                    <td>{{ turno.fecha_turno|date:"d/m/Y" }}</td>
-                    <td>{{ turno.hora_turno|time:"H:i" }}</td>
+                    <td>{{ turno.fecha_hora|date:"d/m/Y" }}</td>
+                    <td>{{ turno.fecha_hora|time:"H:i" }}</td>
                     <td>
                         <a href="{% url 'turnos:editar_turno' turno.id_turno %}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-edit"></i> Editar
