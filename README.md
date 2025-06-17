@@ -21,7 +21,7 @@ Este repositorio **no contiene un entorno virtual (`venv/`)**, por lo tanto debe
 python -m venv venv
 source venv/bin/activate      # En Linux/Mac
 venv\Scripts\activate.bat     # En Windows
-pip install -r requirements.txt
+
 ```
 
 ---
