@@ -1,0 +1,31 @@
+{% extends 'turnos/base.html' %}
+
+{% block title %}Confirmar Eliminación de Turno{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación de Turno</h2>
+    
+    <div class="alert alert-danger mt-3">
+        <h4>¿Está seguro que desea eliminar el siguiente turno?</h4>
+        <hr>
+        <p><strong>Paciente:</strong> {{ turno.id_paciente.nombre }} {{ turno.id_paciente.apellido }}</p>
+        <p><strong>Doctor:</strong> Dr. {{ turno.id_doctor.nombre }} {{ turno.id_doctor.apellido }}</p>
+        <p><strong>Fecha y hora:</strong> {{ turno.fecha_hora }}</p>
+        <p><strong>Motivo de consulta:</strong> {{ turno.motivo_consulta|default:"No especificado" }}</p>
+        <p class="mb-0">Esta acción no se puede deshacer.</p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'turnos:lista_turnos' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Cancelar
+            </a>
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt me-2"></i>Confirmar Eliminación
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
